@@ -1,0 +1,44 @@
+## Stack
+
+- Next.js 14+ (App Router)
+- TypeScript estricto
+- Tailwind CSS
+- Framer Motion para animaciones
+- React Icons
+
+## Diseño
+
+- Mobile-first (diseño principal para 375px-430px)
+- Animaciones suaves y atractivas
+- Scrollable vertical
+- Tipografía legible en móvil
+
+## Secciones principales
+
+1. Hero con nombre del cumpleañero y fecha
+2. Detalles del evento (hora, lugar, dress code)
+3. Mapa/ubicación
+4. Formulario RSVP
+5. Contador regresivo
+6. Galería de fotos (opcional)
+
+## Componentes
+
+- Usar Server Components por defecto
+- 'use client' solo para interactividad (formularios, animaciones)
+- Props tipadas con interfaces
+- Componentes pequeños y reutilizables
+
+## Estilo
+
+- Tailwind con clases utility-first
+- Breakpoints: sm (640px), md (768px), lg (1024px)
+- Espaciado generoso para touch
+- Botones grandes (min 44px de altura)
+
+## Dependencias
+
+- framer-motion
+- react-icons
+- date-fns
+- react-hook-form zod @hookform/resolvers
