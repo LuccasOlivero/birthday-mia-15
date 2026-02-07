@@ -55,7 +55,7 @@ export default function Hero() {
       <div className="relative z-10 text-center w-full max-w-md">
         <h2
           className="text-white uppercase text-3xl sm:text-4xl font-light mb-8 sm:mb-12"
-          style={{ letterSpacing: "0.2em" }}
+          style={{ letterSpacing: "0.3em" }}
         >
           Mis 15 <br /> Mia
         </h2>
@@ -65,7 +65,7 @@ export default function Hero() {
           {/* Días */}
           <div
             className="flex flex-col items-center"
-            style={{ letterSpacing: "0.1em" }}
+            style={{ letterSpacing: "0.2em" }}
           >
             <div className="text-2xl sm:text-3xl">
               {formatNumber(timeLeft.days)}
@@ -79,7 +79,7 @@ export default function Hero() {
           {/* Horas */}
           <div
             className="flex flex-col items-center"
-            style={{ letterSpacing: "0.1em" }}
+            style={{ letterSpacing: "0.2em" }}
           >
             <div className="text-2xl sm:text-3xl">
               {formatNumber(timeLeft.hours)}
@@ -93,7 +93,7 @@ export default function Hero() {
           {/* Minutos */}
           <div
             className="flex flex-col items-center"
-            style={{ letterSpacing: "0.1em" }}
+            style={{ letterSpacing: "0.2em" }}
           >
             <div className="text-2xl sm:text-3xl">
               {formatNumber(timeLeft.minutes)}
@@ -107,7 +107,7 @@ export default function Hero() {
           {/* Segundos */}
           <div
             className="flex flex-col items-center"
-            style={{ letterSpacing: "0.1em" }}
+            style={{ letterSpacing: "0.2em" }}
           >
             <div className="text-2xl sm:text-3xl">
               {formatNumber(timeLeft.seconds)}
