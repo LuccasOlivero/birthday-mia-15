@@ -5,6 +5,7 @@ import { useState } from "react";
 interface Invitado {
   nombre: string;
   apellido: string;
+  esMenor: boolean;
 }
 
 export default function Form() {
@@ -41,7 +42,12 @@ export default function Form() {
         setInvitadosAdicionales(
           Array.from(
             { length: adicionales },
-            (_, i) => invitadosAdicionales[i] || { nombre: "", apellido: "" },
+            (_, i) =>
+              invitadosAdicionales[i] || {
+                nombre: "",
+                apellido: "",
+                esMenor: false,
+              },
           ),
         );
       } else {
@@ -53,7 +59,7 @@ export default function Form() {
   const handleInvitadoChange = (
     index: number,
     field: keyof Invitado,
-    value: string,
+    value: string | boolean,
   ) => {
     setInvitadosAdicionales((prev) => {
       const updated = [...prev];
@@ -230,6 +236,29 @@ export default function Form() {
                             }
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-950 text-sm"
                           />
+                        </div>
+
+                        {/* Checkbox para menor de 12 años */}
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            id={`invitado-menor-${index}`}
+                            checked={invitado.esMenor}
+                            onChange={(e) =>
+                              handleInvitadoChange(
+                                index,
+                                "esMenor",
+                                e.target.checked,
+                              )
+                            }
+                            className="w-4 h-4 text-blue-950 border-gray-300 rounded focus:ring-2 focus:ring-blue-950"
+                          />
+                          <label
+                            htmlFor={`invitado-menor-${index}`}
+                            className="text-xs font-medium text-gray-700"
+                          >
+                            Es menor de 12 años
+                          </label>
                         </div>
                       </div>
                     </div>
