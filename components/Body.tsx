@@ -10,7 +10,7 @@ export default function Body() {
 
         {/* Contenido con bordes */}
         <p
-          className="uppercase text-center border-b-[.5px] border-t-[.5px] border-blue-950 text-blue-950 py-4 sm:py-5 font-semibold text-sm sm:text-base leading-relaxed"
+          className="uppercase text-center border-b-[1.5px] border-t-[1.5px] border-blue-950 text-blue-950 py-4 sm:py-5 font-semibold text-sm sm:text-base leading-relaxed"
           style={{ letterSpacing: "0.05em" }}
         >
           Un día lleno de sueños <br />

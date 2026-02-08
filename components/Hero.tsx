@@ -57,7 +57,7 @@ export default function Hero() {
           className="text-white uppercase text-3xl sm:text-4xl font-light mb-8 sm:mb-12"
           style={{ letterSpacing: "0.3em" }}
         >
-          Mis 15 <br /> Mia
+          Mis XV <br /> Mia
         </h2>
 
         {/* Cuenta regresiva */}
