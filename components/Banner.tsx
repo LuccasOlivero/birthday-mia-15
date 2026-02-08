@@ -10,7 +10,7 @@ export default function Banner() {
         className="text-slate-200 uppercase relative index-10 text-3xl text-center"
         style={{ letterSpacing: "0.2em" }}
       >
-        mis 15 <br />
+        mis xv <br />
         mia
       </h2>
     </div>

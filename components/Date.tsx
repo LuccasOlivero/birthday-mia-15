@@ -11,7 +11,7 @@ export default function Date() {
       </div>
       <h2 className="pb-0.5">¿Cuando?</h2>
       <p>El día 1° de agosto</p>
-      <p>| 21:30hs |</p>
+      <p>| 21:00hs |</p>
     </div>
   );
 }
