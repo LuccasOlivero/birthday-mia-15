@@ -11,7 +11,9 @@ export default function Info() {
       </div>
       <h2>dess code</h2>
       <h3>elegante</h3>
-      <p>evita usar color azul</p>
+      <p className="lowercase">
+        {"("}evita usar color azul{")"}
+      </p>
     </div>
   );
 }

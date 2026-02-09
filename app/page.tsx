@@ -10,6 +10,8 @@ import Info from "@/components/Info";
 import Footer from "@/components/Footer";
 
 export default function Home() {
+  // cancion de fondo
+  // https://www.youtube.com/watch?v=QYaPhMmsZ1g&list=RDQYaPhMmsZ1g&start_radio=1
   return (
     <>
       <Hero />

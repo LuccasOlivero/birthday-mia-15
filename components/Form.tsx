@@ -75,10 +75,9 @@ export default function Form() {
     // Aquí conectarías con tu backend o servicio
     alert("¡Confirmación enviada! Gracias por responder.");
   };
-
   return (
     <div
-      className="relative flex flex-col justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat px-4 py-6"
+      className="relative flex flex-col justify-center items-center min-h-[85vh] bg-cover bg-center bg-no-repeat px-4 py-4"
       style={{ backgroundImage: `url('/fondo15.png')` }}
     >
       <div className="absolute inset-0 bg-black/65"></div>
@@ -314,7 +313,7 @@ export default function Form() {
             type="submit"
             className="w-full bg-blue-950 text-white py-3 px-4 rounded-md font-semibold uppercase tracking-wide hover:bg-blue-900 transition-colors duration-200"
           >
-            Enviar Confirmación
+            Confirmar
           </button>
         </form>
       </div>

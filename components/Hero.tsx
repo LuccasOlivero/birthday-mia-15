@@ -45,7 +45,7 @@ export default function Hero() {
 
   return (
     <div
-      className="relative flex flex-col justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat px-4"
+      className="relative flex flex-col justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat px-4 py-8"
       style={{ backgroundImage: `url('/fondo15.png')` }}
     >
       {/* Overlay oscuro */}
@@ -54,65 +54,79 @@ export default function Hero() {
       {/* Contenido */}
       <div className="relative z-10 text-center w-full max-w-md">
         <h2
-          className="text-white uppercase text-3xl sm:text-4xl font-light mb-8 sm:mb-12"
-          style={{ letterSpacing: "0.3em" }}
+          className="text-white uppercase text-3xl sm:text-4xl md:text-5xl font-light mb-8 sm:mb-12"
+          style={{ letterSpacing: "0.25em" }}
         >
           Mis XV <br /> Mia
         </h2>
 
         {/* Cuenta regresiva */}
-        <div className="flex items-center justify-center gap-1 text-white font-light">
+        <div className="flex items-center justify-center gap-2 sm:gap-3 text-white font-light">
           {/* Días */}
           <div
-            className="flex flex-col items-center"
-            style={{ letterSpacing: "0.2em" }}
+            className="flex flex-col items-center min-w-[60px] sm:min-w-[70px]"
+            style={{ letterSpacing: "0.15em" }}
           >
-            <div className="text-2xl sm:text-3xl">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-light">
               {formatNumber(timeLeft.days)}
             </div>
-            <div className="text-xs sm:text-sm mt-1 uppercase">Días</div>
+            <div className="text-xs sm:text-sm mt-1 sm:mt-2 uppercase">
+              Días
+            </div>
           </div>
 
           {/* Separador */}
-          <div className="text-xl sm:text-3xl mb-5">:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-5">
+            :
+          </div>
 
           {/* Horas */}
           <div
-            className="flex flex-col items-center"
-            style={{ letterSpacing: "0.2em" }}
+            className="flex flex-col items-center min-w-[60px] sm:min-w-[70px]"
+            style={{ letterSpacing: "0.15em" }}
           >
-            <div className="text-2xl sm:text-3xl">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-light">
               {formatNumber(timeLeft.hours)}
             </div>
-            <div className="text-xs sm:text-sm mt-1 uppercase">Horas</div>
+            <div className="text-xs sm:text-sm mt-1 sm:mt-2 uppercase">
+              Horas
+            </div>
           </div>
 
           {/* Separador */}
-          <div className="text-xl sm:text-3xl mb-5">:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-5">
+            :
+          </div>
 
           {/* Minutos */}
           <div
-            className="flex flex-col items-center"
-            style={{ letterSpacing: "0.2em" }}
+            className="flex flex-col items-center min-w-[60px] sm:min-w-[70px]"
+            style={{ letterSpacing: "0.15em" }}
           >
-            <div className="text-2xl sm:text-3xl">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-light">
               {formatNumber(timeLeft.minutes)}
             </div>
-            <div className="text-xs sm:text-sm mt-1 uppercase">Minutos</div>
+            <div className="text-xs sm:text-sm mt-1 sm:mt-2 uppercase">
+              Minutos
+            </div>
           </div>
 
           {/* Separador */}
-          <div className="text-xl sm:text-3xl mb-5">:</div>
+          <div className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-5">
+            :
+          </div>
 
           {/* Segundos */}
           <div
-            className="flex flex-col items-center"
-            style={{ letterSpacing: "0.2em" }}
+            className="flex flex-col items-center min-w-[60px] sm:min-w-[70px]"
+            style={{ letterSpacing: "0.15em" }}
           >
-            <div className="text-2xl sm:text-3xl">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-light">
               {formatNumber(timeLeft.seconds)}
             </div>
-            <div className="text-xs sm:text-sm mt-1 uppercase">Segundos</div>
+            <div className="text-xs sm:text-sm mt-1 sm:mt-2 uppercase">
+              Segundos
+            </div>
           </div>
         </div>
       </div>
