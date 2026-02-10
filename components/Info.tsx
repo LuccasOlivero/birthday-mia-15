@@ -11,7 +11,7 @@ export default function Info() {
       </div>
       <h2>dess code</h2>
       <h3>elegante</h3>
-      <p className="lowercase">
+      <p className="text-sm">
         {"("}evita usar color azul{")"}
       </p>
     </div>

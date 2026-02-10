@@ -8,12 +8,14 @@ import SecondBanner from "@/components/SecondBanner";
 import Form from "@/components/Form";
 import Info from "@/components/Info";
 import Footer from "@/components/Footer";
+import AudioPlayer from "@/components/AudioPlayer";
 
 export default function Home() {
   // cancion de fondo
   // https://www.youtube.com/watch?v=QYaPhMmsZ1g&list=RDQYaPhMmsZ1g&start_radio=1
   return (
     <>
+      <AudioPlayer />
       <Hero />
       <Body />
       <Date />
