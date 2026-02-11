@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { quiz } from "../helpers/quiz";
-import { refresh } from "next/cache";
 
 interface Invitado {
   nombre: string;
@@ -395,7 +394,7 @@ export default function Form() {
                                       htmlFor={`invitado-menor-${index}`}
                                       className="text-xs font-medium text-gray-700"
                                     >
-                                      Es menor de 12 años
+                                      Es menor de 13 años
                                     </label>
                                   </div>
                                   <div className="flex items-center gap-2">
@@ -413,7 +412,7 @@ export default function Form() {
                                       htmlFor={`invitado-mayor-${index}`}
                                       className="text-xs font-medium text-gray-700"
                                     >
-                                      Es mayor de 12 años
+                                      Tiene 13 años o más
                                     </label>
                                   </div>
                                 </div>
