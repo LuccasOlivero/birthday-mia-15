@@ -1,5 +1,5 @@
 export const quiz = {
-  title: "Quiz mia",
+  title: "",
   questions: [
     {
       id: 1,

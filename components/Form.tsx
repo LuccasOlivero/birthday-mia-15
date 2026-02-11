@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { quiz } from "../helpers/quiz";
+import { refresh } from "next/cache";
 
 interface Invitado {
   nombre: string;
@@ -170,6 +171,25 @@ export default function Form() {
     alert(
       `¡Confirmación enviada! Obtuviste ${puntaje} de ${quiz.questions.length} puntos en el quiz.`,
     );
+
+    // Scroll suave al top y reiniciar formulario
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    setTimeout(() => {
+      // Reiniciar todos los estados
+      setFormData({
+        nombre: "",
+        apellido: "",
+        asistencia: "",
+        cantidadPersonas: "1",
+        restriccionesAlimentarias: "",
+        mensaje: "",
+      });
+      setInvitadosAdicionales([]);
+      setMostrarQuiz(false);
+      setPreguntaActual(0);
+      setRespuestasQuiz({});
+    }, 500);
   };
 
   const preguntaQuiz = quiz.questions[preguntaActual];

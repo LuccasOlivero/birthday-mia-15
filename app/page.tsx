@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "motion/react";
+import AudioPlayer from "@/components/AudioPlayer";
 import Hero from "@/components/Hero";
 import Body from "@/components/Body";
 import Date from "@/components/Date";
@@ -5,26 +9,41 @@ import Ubication from "@/components/Ubication";
 import Banner from "@/components/Banner";
 import Images from "@/components/Images";
 import SecondBanner from "@/components/SecondBanner";
-import Form from "@/components/Form";
 import Info from "@/components/Info";
+import Form from "@/components/Form";
 import Footer from "@/components/Footer";
-import AudioPlayer from "@/components/AudioPlayer";
 
 export default function Home() {
-  // cancion de fondo
-  // https://www.youtube.com/watch?v=QYaPhMmsZ1g&list=RDQYaPhMmsZ1g&start_radio=1
+  const components = [
+    { Component: Body, key: "body" },
+    { Component: Date, key: "date" },
+    { Component: Ubication, key: "ubication" },
+    { Component: Banner, key: "banner" },
+    { Component: Images, key: "images" },
+    { Component: SecondBanner, key: "secondbanner" },
+    { Component: Info, key: "info" },
+    { Component: Form, key: "form" },
+  ];
+
   return (
     <>
-      <AudioPlayer />
       <Hero />
-      <Body />
-      <Date />
-      <Ubication />
-      <Banner />
-      <Images />
-      <SecondBanner />
-      <Info />
-      <Form />
+      <AudioPlayer />
+      {components.map(({ Component, key }, index) => (
+        <motion.div
+          key={key}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: "easeOut",
+          }}
+        >
+          <Component />
+        </motion.div>
+      ))}
       <Footer />
     </>
   );

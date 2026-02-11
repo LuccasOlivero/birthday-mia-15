@@ -1,4 +1,5 @@
 import { FaCamera } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Images() {
   return (
@@ -6,9 +7,17 @@ export default function Images() {
       className="min-h-52 w-full uppercase flex flex-col justify-center items-center bg-slate-200 text-blue-950 px-4 py-8 sm:py-10"
       style={{ letterSpacing: "0.05em" }}
     >
-      <div>
+      <motion.div
+        animate={{ rotate: [0, 10, 0] }}
+        transition={{
+          duration: 0.5,
+          repeat: Infinity,
+          repeatType: "reverse",
+          repeatDelay: 2,
+        }}
+      >
         <FaCamera className="text-3xl sm:text-4xl mb-3 sm:mb-4" />
-      </div>
+      </motion.div>
       <h2 className="text-blue-950 uppercase text-center font-semibold text-base sm:text-lg mb-2">
         ¡momento selfie!
       </h2>
