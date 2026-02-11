@@ -15,10 +15,12 @@ export default function Images() {
       <p className="text-blue-950 text-center text-sm sm:text-base leading-relaxed max-w-md">
         Te invito a tomarte una selfie en el <br className="hidden sm:block" />
         cumple y compartirlas conmigo por acá <br className="hidden sm:block" />
-        y si querés ahora también!
+        ¡y si te animas, sacate una ahora y subila!{" "}
+        <br className="hidden sm:block" />
+        voy a estar viendo todas
       </p>
       <button className="uppercase p-2 px-4 sm:px-6 mt-4 sm:mt-5 border-[1.5px] border-blue-950 hover:bg-blue-950 hover:text-slate-200 transition-colors text-sm sm:text-base font-medium rounded-sm">
-        subir
+        subir foto
       </button>
     </div>
   );

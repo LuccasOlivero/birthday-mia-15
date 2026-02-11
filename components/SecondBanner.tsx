@@ -10,11 +10,12 @@ export default function SecondBanner() {
 
         {/* Contenido con bordes */}
         <p
-          className="uppercase text-center border-b-[1.5px] border-t-[1.5px] border-slate-200 text-slate-200 py-4 px-6 sm:py-5 text-sm sm:text-base leading-relaxed"
+          className="uppercase text-center border-b-[1.5px] border-t-[1.5px] border-slate-200 text-slate-200 py-4 px-10 sm:py-5 sm:px-12 text-sm sm:text-base leading-relaxed"
           style={{ letterSpacing: "0.05em" }}
         >
-          te invito a festar <br />
-          esta noche <i className="text-bold">¡inolvidable!</i> <br />
+          veni a festejar <br />
+          esta noche <br />
+          <i className="text-bold">¡inolvidable!</i> <br />
         </p>
       </div>
     </div>

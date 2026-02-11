@@ -13,10 +13,10 @@ export default function Body() {
           className="uppercase text-center border-b-[1.5px] border-t-[1.5px] border-blue-950 text-blue-950 py-4 sm:py-5 text-sm sm:text-base font-semibold leading-relaxed"
           style={{ letterSpacing: "0.05em" }}
         >
-          Un día lleno de sueños <br />
+          Un día lleno de sueños, <br />
           risas y recuerdos está <br />
-          por llegar. Por esa razón <br />
-          te invito a celebrar mis 15 años
+          por llegar. Por esa razón, <br />
+          te invito a festejar mis 15 años
         </p>
       </div>
     </div>

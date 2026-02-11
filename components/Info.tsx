@@ -9,10 +9,10 @@ export default function Info() {
       <div>
         <GiAmpleDress className="text-4xl mb-2" />
       </div>
-      <h2>dess code</h2>
+      <h2>codigo de vestimenta</h2>
       <h3>elegante</h3>
       <p className="text-sm">
-        {"("}evita usar color azul{")"}
+        {"("}evitar usar color azul{")"}
       </p>
     </div>
   );

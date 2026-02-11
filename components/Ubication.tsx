@@ -16,7 +16,7 @@ export default function Ubication() {
       <p className="text-sm sm:text-base mb-3 sm:mb-4">M&M Eventos</p>
       <Link
         target="_blank"
-        href={"https://maps.app.goo.gl/82sqzPL3izJWv9jLA"}
+        href={"https://maps.app.goo.gl/za9oiMxYKqeABrPb9"}
         className="uppercase p-2 px-4 sm:px-6 border-[1.5px] border-blue-950 hover:bg-blue-950 hover:text-slate-200 transition-colors text-sm sm:text-base font-medium rounded-sm"
       >
         cómo llegar
