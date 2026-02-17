@@ -5,26 +5,10 @@ import { motion, AnimatePresence } from "motion/react";
 import toast, { Toaster } from "react-hot-toast";
 import { quiz } from "../helpers/quiz";
 
-interface Invitado {
-  nombre: string;
-  apellido: string;
-  esMenor: boolean | null;
-}
+import { Question } from "../types/index";
+import Invitado from "../types/index";
 
-type Option = {
-  text: string;
-  isCorrect: boolean;
-};
-
-type Question = {
-  id: number;
-  question: string;
-  options: Option[];
-};
-
-// Reemplaza con tu URL de Apps Script
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwx6wroRM1HwzEMhG3e2rJSZFAe6s9db1CzgrcP7XhYaUjXkGx3ySSr7G2VEEVPO8SsDw/exec";
+const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL!;
 
 export default function Form() {
   const [formData, setFormData] = useState({
@@ -45,6 +29,7 @@ export default function Form() {
   const [respuestasQuiz, setRespuestasQuiz] = useState<Record<number, number>>(
     {},
   );
+
   const [enviando, setEnviando] = useState(false);
 
   const handleChange = (
@@ -294,7 +279,6 @@ export default function Form() {
 
   return (
     <>
-      {/* Toaster para notificaciones */}
       <Toaster
         toastOptions={{
           style: {

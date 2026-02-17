@@ -17,7 +17,6 @@ export default function Hero() {
   });
 
   useEffect(() => {
-    // Fecha del evento: 01/08/26
     const targetDate = new Date("2026-08-01T00:00:00");
 
     const calculateTimeLeft = () => {
