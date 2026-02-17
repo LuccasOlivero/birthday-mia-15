@@ -1,5 +1,4 @@
 import { GiAmpleDress } from "react-icons/gi";
-
 export default function Info() {
   return (
     <div
@@ -11,7 +10,7 @@ export default function Info() {
       </div>
       <h2>codigo de vestimenta</h2>
       <h3>elegante</h3>
-      <p className="text-sm">
+      <p className="text-sm lowercase">
         {"("}evitar usar color azul{")"}
       </p>
     </div>
