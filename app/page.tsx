@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <AudioPlayer />
+      {/* <AudioPlayer /> */}
       {components.map(({ Component, key }, index) => (
         <motion.div
           key={key}
