@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import AudioPlayer from "@/components/AudioPlayer";
 import Hero from "@/components/Hero";
 import Body from "@/components/Body";
@@ -12,6 +11,8 @@ import SecondBanner from "@/components/SecondBanner";
 import Info from "@/components/Info";
 import Form from "@/components/Form";
 import Footer from "@/components/Footer";
+
+import { motion } from "motion/react";
 
 export default function Home() {
   const components = [
