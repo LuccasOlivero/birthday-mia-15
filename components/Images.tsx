@@ -78,6 +78,20 @@ export default function Images() {
 
       if (uploadError) throw uploadError;
 
+      // Registrar en base de datos con aprobada=false
+      const { error: dbError } = await supabase.from("fotos").insert({
+        nombre: fileName,
+        aprobada: false,
+      });
+
+      if (dbError) {
+        console.error("Error registrando en BD:", dbError);
+        // No bloquear si falla el registro, la foto ya está subida
+      }
+
+      // Volver al estado inicial y mostrar notificación
+      handleCancel();
+
       // Volver al estado inicial y mostrar notificación
       handleCancel();
       toast.success("¡Foto subida con éxito! 🎉", {
