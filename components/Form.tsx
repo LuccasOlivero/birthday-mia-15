@@ -8,7 +8,7 @@ import { quiz } from "../helpers/quiz";
 import { Question } from "../types/index";
 import Invitado from "../types/index";
 
-const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL!;
+const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL!;
 
 export default function Form() {
   const [formData, setFormData] = useState({
