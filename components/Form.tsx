@@ -8,7 +8,7 @@ import { quiz } from "../helpers/quiz";
 import { Question } from "../types/index";
 import Invitado from "../types/index";
 
-const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL!;
+const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
 
 export default function Form() {
   const [formData, setFormData] = useState({
@@ -120,7 +120,9 @@ export default function Form() {
       setEnviando(true);
 
       try {
-        const response = await fetch(APPS_SCRIPT_URL, {
+        console.log("URL del Apps Script:", APPS_SCRIPT_URL);
+
+        const response = await fetch(APPS_SCRIPT_URL!, {
           method: "POST",
           body: JSON.stringify({
             formData,
@@ -212,7 +214,7 @@ export default function Form() {
     const puntaje = calcularPuntaje();
 
     try {
-      const response = await fetch(APPS_SCRIPT_URL, {
+      const response = await fetch(APPS_SCRIPT_URL!, {
         method: "POST",
         body: JSON.stringify({
           formData,
