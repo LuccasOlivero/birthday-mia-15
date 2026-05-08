@@ -1,7 +1,11 @@
+import { SparkleOverlay } from "@/components/SparkleOverlay";
+
 export default function SecondBanner() {
   return (
-    <div className="bg-blue-950 px-4 sm:px-8 sm:py-12 h-52 flex items-center justify-center">
-      <div className="relative max-w-md mx-auto">
+    <div className="relative bg-blue-950 px-4 sm:px-8 sm:py-12 h-52 flex items-center justify-center overflow-hidden">
+      <SparkleOverlay />
+
+      <div className="relative z-10 max-w-md mx-auto">
         {/* Desvanecimiento izquierdo */}
         <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-linear-to-r from-blue-950 to-transparent z-10"></div>
 

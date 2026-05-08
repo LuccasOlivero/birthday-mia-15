@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { FaCamera } from "react-icons/fa";
 import { motion, AnimatePresence } from "motion/react";
 import toast, { Toaster } from "react-hot-toast";
 import { supabase } from "@/lib/supabase";
 
-// Constantes de validación
 const MAX_SIZE_MB = 5;
 const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -16,58 +15,51 @@ type UploadStatus = "idle" | "preview" | "uploading";
 
 export default function Images() {
   const inputRef = useRef<HTMLInputElement>(null);
-
   const [status, setStatus] = useState<UploadStatus>("idle");
   const [preview, setPreview] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  // Validar archivo
   const validateFile = (file: File): string | null => {
-    if (!ALLOWED_TYPES.includes(file.type)) {
+    if (!ALLOWED_TYPES.includes(file.type))
       return "Solo se permiten imágenes (JPG, PNG, WEBP, GIF)";
-    }
-    if (file.size > MAX_SIZE_BYTES) {
+    if (file.size > MAX_SIZE_BYTES)
       return `La imagen no puede superar los ${MAX_SIZE_MB}MB`;
-    }
     return null;
   };
 
-  // Resetear todo al estado inicial
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     if (preview) URL.revokeObjectURL(preview);
     setPreview(null);
     setSelectedFile(null);
     setStatus("idle");
     if (inputRef.current) inputRef.current.value = "";
-  };
+  }, [preview]);
 
-  // Manejar selección de archivo
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleFileSelect = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
 
-    const error = validateFile(file);
-    if (error) {
-      toast.error(error, { position: "top-center" });
-      if (inputRef.current) inputRef.current.value = "";
-      return;
-    }
+      const error = validateFile(file);
+      if (error) {
+        toast.error(error, { position: "top-center" });
+        if (inputRef.current) inputRef.current.value = "";
+        return;
+      }
 
-    setSelectedFile(file);
-    setPreview(URL.createObjectURL(file));
-    setStatus("preview");
-  };
+      setSelectedFile(file);
+      setPreview(URL.createObjectURL(file));
+      setStatus("preview");
+    },
+    [],
+  );
 
-  // Subir imagen a Supabase
-  const handleUpload = async () => {
+  const handleUpload = useCallback(async () => {
     if (!selectedFile) return;
-
     setStatus("uploading");
 
     try {
-      const timestamp = Date.now();
-      const sanitizedName = selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const fileName = `${timestamp}_${sanitizedName}`;
+      const fileName = `${Date.now()}_${selectedFile.name.replace(/[^a-zA-Z0-9._-]/g, "_")}`;
 
       const { error: uploadError } = await supabase.storage
         .from(BUCKET_NAME)
@@ -78,21 +70,12 @@ export default function Images() {
 
       if (uploadError) throw uploadError;
 
-      // Registrar en base de datos con aprobada=false
-      const { error: dbError } = await supabase.from("fotos").insert({
-        nombre: fileName,
-        aprobada: false,
-      });
+      const { error: dbError } = await supabase
+        .from("fotos")
+        .insert({ nombre: fileName, aprobada: false });
 
-      if (dbError) {
-        console.error("Error registrando en BD:", dbError);
-        // No bloquear si falla el registro, la foto ya está subida
-      }
+      if (dbError) console.error("Error registrando en BD:", dbError);
 
-      // Volver al estado inicial y mostrar notificación
-      handleCancel();
-
-      // Volver al estado inicial y mostrar notificación
       handleCancel();
       toast.success("¡Foto subida con éxito! 🎉", {
         position: "top-center",
@@ -106,17 +89,17 @@ export default function Images() {
       });
       setStatus("preview");
     }
-  };
+  }, [selectedFile, handleCancel]);
+
+  const fileSizeMB = ((selectedFile?.size ?? 0) / 1024 / 1024).toFixed(2);
 
   return (
     <>
       <Toaster />
-
       <div
         className="min-h-52 w-full uppercase flex flex-col justify-center items-center bg-slate-200 text-blue-950 px-4 py-8 sm:py-10"
         style={{ letterSpacing: "0.05em" }}
       >
-        {/* Input oculto */}
         <input
           ref={inputRef}
           type="file"
@@ -126,7 +109,7 @@ export default function Images() {
         />
 
         <AnimatePresence mode="wait">
-          {/* Estado: idle */}
+          {/* idle */}
           {status === "idle" && (
             <motion.div
               key="idle"
@@ -136,7 +119,41 @@ export default function Images() {
               transition={{ duration: 0.3 }}
               className="flex flex-col items-center gap-3"
             >
-              <FaCamera className="text-3xl sm:text-4xl mb-1" />
+              {/* Ícono de cámara animado */}
+              <div className="relative mb-1">
+                {/* Anillos de destello */}
+                {[1, 1.6, 2.2].map((scale, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute inset-0 rounded-full border border-blue-950/20"
+                    animate={{ scale: [1, scale], opacity: [0.5, 0] }}
+                    transition={{
+                      duration: 2,
+                      delay: i * 0.5,
+                      repeat: Infinity,
+                      ease: "easeOut",
+                    }}
+                  />
+                ))}
+                <motion.div
+                  animate={{
+                    scale: [1, 1.08, 1],
+                    filter: [
+                      "drop-shadow(0 0 0px rgba(30,58,138,0))",
+                      "drop-shadow(0 0 8px rgba(30,58,138,0.4))",
+                      "drop-shadow(0 0 0px rgba(30,58,138,0))",
+                    ],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <FaCamera className="text-3xl sm:text-4xl" />
+                </motion.div>
+              </div>
+
               <h2 className="text-base sm:text-lg font-semibold text-center">
                 ¡Momento selfie!
               </h2>
@@ -153,7 +170,7 @@ export default function Images() {
             </motion.div>
           )}
 
-          {/* Estado: preview */}
+          {/* preview */}
           {status === "preview" && preview && (
             <motion.div
               key="preview"
@@ -166,8 +183,6 @@ export default function Images() {
               <h2 className="text-base sm:text-lg font-semibold text-center">
                 Vista previa
               </h2>
-
-              {/* Preview de la imagen */}
               <div className="relative w-full aspect-square rounded-lg overflow-hidden border-2 border-blue-950">
                 <img
                   src={preview}
@@ -175,13 +190,9 @@ export default function Images() {
                   className="w-full h-full object-cover"
                 />
               </div>
-
               <p className="text-xs text-blue-950/60 normal-case text-center">
-                {selectedFile?.name} ·{" "}
-                {((selectedFile?.size || 0) / 1024 / 1024).toFixed(2)}MB
+                {selectedFile?.name} · {fileSizeMB}MB
               </p>
-
-              {/* Botones */}
               <div className="flex gap-3 w-full">
                 <button
                   onClick={handleCancel}
@@ -199,7 +210,7 @@ export default function Images() {
             </motion.div>
           )}
 
-          {/* Estado: uploading */}
+          {/* uploading */}
           {status === "uploading" && (
             <motion.div
               key="uploading"
