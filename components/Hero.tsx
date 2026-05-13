@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   differenceInDays,
   differenceInHours,
@@ -9,15 +9,23 @@ import {
   differenceInSeconds,
 } from "date-fns";
 import { Yellowtail } from "next/font/google";
-import { SparkleOverlay } from "@/components/SparkleOverlay";
 
 const playwrite = Yellowtail({
   weight: "400",
-  display: "swap", // ← evita el bloqueo de render
-  preload: true, // ← descarga anticipada
+  display: "swap",
+  preload: true,
 });
 
+const PHOTOS = [
+  { src: "/foto1.jpeg", rotate: 3 },
+  { src: "/foto2.jpeg", rotate: -4 },
+  { src: "/foto3.jpeg", rotate: 5 },
+  { src: "/foto4.jpeg", rotate: -2 },
+];
+
 export default function Hero() {
+  const [visibleCount, setVisibleCount] = useState(1);
+  const [activePhoto, setActivePhoto] = useState(0);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -25,6 +33,19 @@ export default function Hero() {
     seconds: 0,
   });
 
+  // Agrega una foto cada 2s y la pone activa automáticamente
+  useEffect(() => {
+    if (visibleCount >= PHOTOS.length) return;
+    const timer = setTimeout(() => {
+      setVisibleCount((v) => {
+        setActivePhoto(v); // la nueva foto queda activa
+        return v + 1;
+      });
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [visibleCount]);
+
+  // Cuenta regresiva
   useEffect(() => {
     const targetDate = new Date("2026-08-01T00:00:00");
 
@@ -43,8 +64,8 @@ export default function Hero() {
     };
 
     calculateTimeLeft();
-    const timer = setInterval(calculateTimeLeft, 1000);
-    return () => clearInterval(timer);
+    const interval = setInterval(calculateTimeLeft, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const formatNumber = (num: number) => String(num).padStart(2, "0");
@@ -57,45 +78,113 @@ export default function Hero() {
   ];
 
   return (
-    <div
-      className="relative flex flex-col justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat px-4 py-8 overflow-hidden"
-      style={{ backgroundImage: `url('/fondo15.png')` }}
-    >
-      <div className="absolute inset-0 bg-black/65" />
+    <div className="relative flex flex-col justify-center items-center min-h-screen px-4 py-12 overflow-hidden">
+      {/* Video de fondo */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/video2.mp4" type="video/mp4" />
+        <img src="/fondo15.png" alt="" className="w-full h-full object-cover" />
+      </video>
 
-      <SparkleOverlay />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60" />
 
-      <div className="relative z-10 text-center w-full max-w-md">
+      {/* Contenido */}
+      <div className="relative z-10 flex flex-col items-center w-full max-w-sm mx-auto gap-8">
+        {/* Stack de fotos + indicadores */}
+        <div className="flex flex-col items-center gap-5">
+          <div className="relative w-44 h-44 sm:w-52 sm:h-52">
+            {PHOTOS.slice(0, visibleCount).map((photo, i) => (
+              <motion.div
+                key={photo.src}
+                className="absolute inset-0 border-[6px] border-slate-100 shadow-2xl cursor-pointer"
+                style={{
+                  zIndex: i === activePhoto ? 20 : i,
+                }}
+                initial={{
+                  opacity: 0,
+                  rotate: photo.rotate * 3,
+                  scale: 1.3,
+                  y: -40,
+                }}
+                animate={{
+                  opacity: 1,
+                  rotate: i === activePhoto ? photo.rotate : photo.rotate * 0.7,
+                  scale: 1.2,
+                  y: 0,
+                }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                onClick={() => setActivePhoto(i)}
+              >
+                <img
+                  src={photo.src}
+                  alt={`Foto ${i + 1}`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+              </motion.div>
+            ))}
+          </div>
+
+          <AnimatePresence>
+            <motion.div
+              className="flex gap-2 mt-4"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              {PHOTOS.slice(0, visibleCount).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActivePhoto(i)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === activePhoto
+                      ? "bg-slate-100 w-4"
+                      : "bg-slate-100/40 w-1.5"
+                  }`}
+                />
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Título */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="mb-4 sm:mb-12 text-center"
+          className="text-center"
         >
           <h2
-            className="text-white uppercase text-3xl sm:text-4xl md:text-5xl font-light"
+            className="text-slate-200 uppercase text-2xl sm:text-4xl md:text-5xl font-light"
             style={{ letterSpacing: "0.25em" }}
           >
             Mis XV
           </h2>
           <h3
-            className={`${playwrite.className} text-white text-8xl sm:text-5xl md:text-8xl mt-2`}
+            className={`${playwrite.className} text-slate-200 text-7xl sm:text-8xl `}
           >
             Mia
           </h3>
         </motion.div>
 
+        {/* Cuenta regresiva */}
         <motion.div
-          className="flex items-center justify-center gap-2 sm:gap-3 text-white font-light"
+          className="flex items-center justify-center gap-1 sm:gap-3 text-slate-200 font-light w-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
         >
           {units.map((unit, index) => (
-            <div key={unit.label} className="flex items-center gap-2 sm:gap-3">
+            <div key={unit.label} className="flex items-center gap-1 sm:gap-3">
               <div
-                className="flex flex-col items-center min-w-[60px] sm:min-w-[70px]"
-                style={{ letterSpacing: "0.15em" }}
+                className="flex flex-col items-center min-w-[58px] sm:min-w-[70px]"
+                style={{ letterSpacing: "0.1em" }}
               >
                 <motion.div
                   className="text-3xl sm:text-4xl md:text-5xl font-light"
@@ -106,13 +195,13 @@ export default function Hero() {
                 >
                   {formatNumber(unit.value)}
                 </motion.div>
-                <div className="text-xs sm:text-sm mt-1 sm:mt-2 uppercase opacity-80">
+                <div className="text-[10px] sm:text-xs mt-1 uppercase opacity-70 tracking-widest">
                   {unit.label}
                 </div>
               </div>
 
               {index < 3 && (
-                <div className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-5 opacity-60">
+                <div className="text-2xl sm:text-3xl font-light mb-4 opacity-50">
                   :
                 </div>
               )}

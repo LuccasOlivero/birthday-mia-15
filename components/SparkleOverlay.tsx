@@ -60,7 +60,7 @@ function SparkleParticle({ sparkle }: { sparkle: Sparkle }) {
 }
 
 export function SparkleOverlay() {
-  const [sparkles] = useState<Sparkle[]>(() => generateSparkles(12));
+  const [sparkles] = useState<Sparkle[]>(() => generateSparkles(24));
 
   return (
     <>

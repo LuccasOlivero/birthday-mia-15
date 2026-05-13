@@ -11,8 +11,11 @@ import SecondBanner from "@/components/SecondBanner";
 import Info from "@/components/Info";
 import Form from "@/components/Form";
 import Footer from "@/components/Footer";
+import Gift from "@/components/Gift";
+import Playlist from "@/components/Playlist";
 
 import { motion } from "motion/react";
+import { Component } from "react";
 
 export default function Home() {
   const components = [
@@ -23,6 +26,8 @@ export default function Home() {
     { Component: Images, key: "images" },
     { Component: SecondBanner, key: "secondbanner" },
     { Component: Info, key: "info" },
+    { Component: Gift, key: "gift" },
+    { Component: Playlist, key: "playlist" },
     { Component: Form, key: "form" },
   ];
 
