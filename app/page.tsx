@@ -15,7 +15,6 @@ import Gift from "@/components/Gift";
 import Playlist from "@/components/Playlist";
 
 import { motion } from "motion/react";
-import { Component } from "react";
 
 export default function Home() {
   const components = [

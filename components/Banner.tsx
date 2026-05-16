@@ -2,7 +2,7 @@ export default function Banner() {
   return (
     <div
       className="relative flex flex-col justify-center items-center h-25 bg-cover bg-center bg-no-repeat px-4"
-      style={{ backgroundImage: `url('/fondo15.png')` }}
+      style={{ backgroundImage: `url('/fondo15.jpg')` }}
     >
       <div className="absolute inset-0 bg-black/65"></div>
 

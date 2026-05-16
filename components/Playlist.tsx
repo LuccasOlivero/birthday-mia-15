@@ -33,7 +33,7 @@ export default function Playlist() {
         <PiMusicNoteSimpleBold className="text-4xl" />
       </motion.div>
 
-      <p className="text-sm normal-case max-w-xs leading-relaxed mb-4 uppercase">
+      <p className="text-sm sm:text-base text-center leading-relaxed max-w-xs normal-case mb-3">
         ¡Ayudame sugiriendo las canciones que pensás que no pueden faltar en la
         fiesta!
       </p>
@@ -82,7 +82,7 @@ export default function Playlist() {
 
         <button
           onClick={isOpen ? handleSend : () => setIsOpen(true)}
-          className="uppercase p-2 px-6 border-[1.5px] border-blue-950 hover:bg-blue-950 hover:text-slate-200 transition-colors text-sm font-medium rounded-sm"
+          className="uppercase p-2 px-4 sm:px-6 border-[1.5px] border-blue-950 hover:bg-blue-950 hover:text-slate-200 transition-colors text-sm sm:text-base font-medium rounded-sm"
         >
           <AnimatePresence mode="wait">
             <motion.span

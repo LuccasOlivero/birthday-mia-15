@@ -306,7 +306,7 @@ export default function Form() {
 
       <div
         className="relative flex flex-col justify-center items-center min-h-[85vh] bg-cover bg-center bg-no-repeat px-4 py-6 sm:py-8"
-        style={{ backgroundImage: `url('/fondo15.png')` }}
+        style={{ backgroundImage: `url('/fondo15.jpg')` }}
       >
         <div className="absolute inset-0 bg-black/65"></div>
 

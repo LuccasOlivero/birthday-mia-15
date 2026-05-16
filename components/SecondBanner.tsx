@@ -12,7 +12,7 @@ export default function SecondBanner() {
 
       <div className="relative z-10 max-w-md mx-auto">
         <p
-          className="uppercase text-center text-slate-200 py-4 px-10 sm:py-5 sm:px-12 text-sm sm:text-base leading-relaxed"
+          className="uppercase text-center text-slate-200 py-4 px-10 sm:py-5 sm:px-12 text-sm leading-relaxed sm:text-lg font-semibold "
           style={{
             letterSpacing: "0.05em",
             borderTop: "1.5px solid transparent",

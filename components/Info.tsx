@@ -22,9 +22,13 @@ export default function Info() {
         <GiAmpleDress className="text-4xl" />
       </motion.div>
 
-      <h2>codigo de vestimenta</h2>
-      <h3>elegante</h3>
-      <p className="text-sm lowercase">(evitar usar color azul)</p>
+      <h2 className="text-base sm:text-lg font-semibold text-center">
+        codigo de vestimenta
+        <h3>elegante</h3>
+      </h2>
+      <p className="text-sm sm:text-base text-center leading-relaxed max-w-xs normal-case">
+        ( evitar usar color azul )
+      </p>
     </div>
   );
 }

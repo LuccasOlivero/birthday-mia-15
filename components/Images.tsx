@@ -193,6 +193,7 @@ export default function Images() {
               <p className="text-xs text-blue-950/60 normal-case text-center">
                 {selectedFile?.name} · {fileSizeMB}MB
               </p>
+
               <div className="flex gap-3 w-full">
                 <button
                   onClick={handleCancel}

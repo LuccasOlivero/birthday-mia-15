@@ -6,9 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SparkleOverlay } from "@/components/SparkleOverlay";
 
 const BANK_DATA = [
-  { label: "CBU", value: "123123712932" },
-  { label: "Alias", value: "mia.olivero" },
-  { label: "Banco", value: "Santander Río" },
+  { label: "Banco", value: "MercadoPago" },
+  { label: "Alias", value: "oliveromia" },
+  { label: "CBU", value: "0000003100089011896321" },
+  { label: "Nombre", value: "Mia Olivero" },
 ];
 
 export default function Gift() {
@@ -62,7 +63,7 @@ export default function Gift() {
 
         <button
           onClick={() => setIsOpen(true)}
-          className="relative z-10 uppercase text-xs sm:text-sm px-6 py-2 border-[1.5px] border-slate-200 text-slate-200 hover:bg-slate-200 hover:text-blue-950 transition-colors rounded-sm"
+          className="uppercase p-2 px-4 sm:px-6 border-[1.5px] border-slate-200 hover:bg-blue-950 text-slate-200 hover:border-blue-950 transition-colors text-sm sm:text-base font-medium rounded-sm"
           style={{ letterSpacing: "0.08em" }}
         >
           Hacer un regalo
@@ -117,7 +118,7 @@ export default function Gift() {
                       <button
                         key={label}
                         onClick={() => handleCopy(value, label)}
-                        className="w-full flex justify-between items-center py-3 px-4 transition-colors hover:bg-white/5 active:bg-white/10 rounded-sm text-left"
+                        className="w-full flex justify-between items-center py-3 px-2 transition-colors hover:bg-white/5 active:bg-white/10 rounded-sm text-left"
                         style={{
                           borderBottom: "1px solid transparent",
                           borderImage:
@@ -127,7 +128,7 @@ export default function Gift() {
                         <span className="uppercase text-xs tracking-widest text-slate-200/60">
                           {label}
                         </span>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
                           <span className="text-sm sm:text-base font-medium">
                             {value}
                           </span>

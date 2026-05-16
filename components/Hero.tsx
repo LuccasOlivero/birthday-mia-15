@@ -17,10 +17,10 @@ const playwrite = Yellowtail({
 });
 
 const PHOTOS = [
-  { src: "/foto1.jpeg", rotate: 3 },
-  { src: "/foto2.jpeg", rotate: -4 },
-  { src: "/foto3.jpeg", rotate: 5 },
-  { src: "/foto4.jpeg", rotate: -2 },
+  { src: "/foto1.jpg", rotate: 3 },
+  { src: "/foto2.jpg", rotate: -4 },
+  { src: "/foto3.jpg", rotate: 5 },
+  { src: "/foto4.jpg", rotate: -2 },
 ];
 
 export default function Hero() {
