@@ -11,6 +11,7 @@ export default function AudioPlayer() {
     const audio = audioRef.current;
     if (!audio) return;
 
+    audio.loop = true;
     audio.currentTime = 1.2;
 
     const handleInteraction = async () => {
@@ -48,7 +49,7 @@ export default function AudioPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src="/song.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/song.mp3" loop preload="auto" hidden />
       <button
         onClick={toggleAudio}
         className="fixed bottom-6 left-6 bg-white/90 backdrop-blur-sm p-4 rounded-full shadow-lg hover:bg-white transition-all z-50"

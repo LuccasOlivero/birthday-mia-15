@@ -90,7 +90,10 @@ export default function Hero() {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        disablePictureInPicture
+        disableRemotePlayback
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ WebkitMaskImage: "none" } as React.CSSProperties}
       >
         <source src="/video2.mp4" type="video/mp4" />
         <img src="/fondo15.png" alt="" className="w-full h-full object-cover" />
@@ -112,13 +115,13 @@ export default function Hero() {
                 initial={{
                   opacity: 0,
                   rotate: photo.rotate * 3,
-                  scale: 1.3,
+                  scale: 1.4,
                   y: -40,
                 }}
                 animate={{
                   opacity: 1,
                   rotate: i === activePhoto ? photo.rotate : photo.rotate * 0.7,
-                  scale: 1.2,
+                  scale: 1.3,
                   y: 0,
                 }}
                 transition={{ duration: 0.5, ease: "easeOut", delay: 1.5 }}
@@ -168,7 +171,7 @@ export default function Hero() {
           {/* Indicadores */}
           <AnimatePresence>
             <motion.div
-              className="flex gap-2 mt-4"
+              className="flex gap-2 mt-6"
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
