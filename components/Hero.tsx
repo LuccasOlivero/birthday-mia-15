@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   differenceInDays,
@@ -27,6 +27,9 @@ export default function Hero() {
   const [visibleCount, setVisibleCount] = useState(1);
   const [activePhoto, setActivePhoto] = useState(0);
   const [loadedPhotos, setLoadedPhotos] = useState<Set<number>>(new Set());
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -82,10 +85,26 @@ export default function Hero() {
     { value: timeLeft.seconds, label: "Seg" },
   ];
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.play().catch(() => {
+      // Si falla el autoplay, intenta al primer toque
+      const handleTouch = () => {
+        video.play();
+        document.removeEventListener("touchstart", handleTouch);
+      };
+      document.addEventListener("touchstart", handleTouch);
+    });
+  }, []);
+
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen px-4 py-12 overflow-hidden">
       {/* Video de fondo */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
@@ -93,7 +112,6 @@ export default function Hero() {
         disablePictureInPicture
         disableRemotePlayback
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-        style={{ WebkitMaskImage: "none" } as React.CSSProperties}
       >
         <source src="/video2.mp4" type="video/mp4" />
         <img src="/fondo15.png" alt="" className="w-full h-full object-cover" />
