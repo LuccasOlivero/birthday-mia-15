@@ -11,6 +11,7 @@ export default function AudioPlayer() {
     const audio = audioRef.current;
     if (!audio) return;
 
+    audio.loop = true; // ← forzado por JS además del atributo HTML
     audio.currentTime = 1.2;
 
     const handleInteraction = async () => {

@@ -26,6 +26,7 @@ const PHOTOS = [
 export default function Hero() {
   const [visibleCount, setVisibleCount] = useState(1);
   const [activePhoto, setActivePhoto] = useState(0);
+  const [loadedPhotos, setLoadedPhotos] = useState<Set<number>>(new Set());
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -38,7 +39,7 @@ export default function Hero() {
     if (visibleCount >= PHOTOS.length) return;
     const timer = setTimeout(() => {
       setVisibleCount((v) => {
-        setActivePhoto(v); // la nueva foto queda activa
+        setActivePhoto(v);
         return v + 1;
       });
     }, 2000);
@@ -67,6 +68,10 @@ export default function Hero() {
     const interval = setInterval(calculateTimeLeft, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleImageLoad = (index: number) => {
+    setLoadedPhotos((prev) => new Set(prev).add(index));
+  };
 
   const formatNumber = (num: number) => String(num).padStart(2, "0");
 
@@ -103,9 +108,7 @@ export default function Hero() {
               <motion.div
                 key={photo.src}
                 className="absolute inset-0 border-[6px] border-slate-100 shadow-2xl cursor-pointer"
-                style={{
-                  zIndex: i === activePhoto ? 20 : i,
-                }}
+                style={{ zIndex: i === activePhoto ? 20 : i }}
                 initial={{
                   opacity: 0,
                   rotate: photo.rotate * 3,
@@ -121,16 +124,48 @@ export default function Hero() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
                 onClick={() => setActivePhoto(i)}
               >
+                {/* Skeleton */}
+                <AnimatePresence>
+                  {!loadedPhotos.has(i) && (
+                    <motion.div
+                      className="absolute inset-0 z-10"
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      {/* Base gris */}
+                      <div className="w-full h-full bg-slate-250" />
+                      {/* Shimmer */}
+                      <motion.div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%)",
+                          backgroundSize: "200% 100%",
+                        }}
+                        animate={{ backgroundPosition: ["200% 0", "-200% 0"] }}
+                        transition={{
+                          duration: 1.4,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Imagen real */}
                 <img
                   src={photo.src}
                   alt={`Foto ${i + 1}`}
                   className="w-full h-full object-cover"
+                  onLoad={() => handleImageLoad(i)}
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
               </motion.div>
             ))}
           </div>
 
+          {/* Indicadores */}
           <AnimatePresence>
             <motion.div
               className="flex gap-2 mt-4"
@@ -167,7 +202,7 @@ export default function Hero() {
             Mis XV
           </h2>
           <h3
-            className={`${playwrite.className} text-slate-200 text-7xl sm:text-8xl `}
+            className={`${playwrite.className} text-slate-200 text-7xl sm:text-8xl`}
           >
             Mia
           </h3>
