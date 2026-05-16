@@ -121,7 +121,7 @@ export default function Hero() {
                   scale: 1.2,
                   y: 0,
                 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 1.5 }}
                 onClick={() => setActivePhoto(i)}
               >
                 {/* Skeleton */}

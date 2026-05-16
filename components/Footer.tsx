@@ -14,8 +14,8 @@ export default function Footer() {
         <SecretButton />
       </div>
 
-      <div className="absolute bottom-2 left-3 w-full text-center">
-        <p className="text-[10px]  text-blue-950/70 normal-case tracking-wide">
+      <div className="absolute bottom-2 m-auto text-center">
+        <p className="text-[10px] text-blue-950/70 normal-case tracking-wide">
           Desarrollador por{" "}
           <a
             href="https://www.instagram.com/luccas.olivero/"
