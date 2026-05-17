@@ -14,16 +14,16 @@ export default function Footer() {
         <SecretButton />
       </div>
 
-      <div className="absolute bottom-2 m-auto text-center">
+      <div className="absolute bottom-4 m-auto text-center">
         <p className="text-[10px] text-blue-950/70 normal-case tracking-wide">
-          Desarrollador por{" "}
+          Desarrollado por{" "}
           <a
             href="https://www.instagram.com/luccas.olivero/"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-950/60 transition-colors"
           >
-            Ing. Luccas
+            Luccas - Analista en sistemas
           </a>
         </p>
       </div>

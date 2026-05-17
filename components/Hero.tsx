@@ -27,17 +27,37 @@ export default function Hero() {
   const [visibleCount, setVisibleCount] = useState(1);
   const [activePhoto, setActivePhoto] = useState(0);
   const [loadedPhotos, setLoadedPhotos] = useState<Set<number>>(new Set());
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Agrega una foto cada 2s y la pone activa automáticamente
+  // Fix autoplay iOS
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.playsInline = true;
+
+    const tryPlay = () => video.play().catch(() => {});
+
+    tryPlay();
+
+    // Fallback: intenta al primer toque si falló
+    const handleTouch = () => {
+      tryPlay();
+      document.removeEventListener("touchstart", handleTouch);
+    };
+    document.addEventListener("touchstart", handleTouch);
+
+    return () => document.removeEventListener("touchstart", handleTouch);
+  }, []);
+
+  // Agrega una foto cada 2s
   useEffect(() => {
     if (visibleCount >= PHOTOS.length) return;
     const timer = setTimeout(() => {
@@ -85,21 +105,6 @@ export default function Hero() {
     { value: timeLeft.seconds, label: "Seg" },
   ];
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.muted = true;
-    video.play().catch(() => {
-      // Si falla el autoplay, intenta al primer toque
-      const handleTouch = () => {
-        video.play();
-        document.removeEventListener("touchstart", handleTouch);
-      };
-      document.addEventListener("touchstart", handleTouch);
-    });
-  }, []);
-
   return (
     <div className="relative flex flex-col justify-center items-center min-h-screen px-4 py-12 overflow-hidden">
       {/* Video de fondo */}
@@ -111,6 +116,7 @@ export default function Hero() {
         playsInline
         disablePictureInPicture
         disableRemotePlayback
+        controls={false}
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
         <source src="/video2.mp4" type="video/mp4" />
@@ -133,13 +139,13 @@ export default function Hero() {
                 initial={{
                   opacity: 0,
                   rotate: photo.rotate * 3,
-                  scale: 1.4,
+                  scale: 1.3,
                   y: -40,
                 }}
                 animate={{
                   opacity: 1,
                   rotate: i === activePhoto ? photo.rotate : photo.rotate * 0.7,
-                  scale: 1.3,
+                  scale: 1.2,
                   y: 0,
                 }}
                 transition={{ duration: 0.5, ease: "easeOut", delay: 1.5 }}
@@ -153,9 +159,7 @@ export default function Hero() {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.4 }}
                     >
-                      {/* Base gris */}
-                      <div className="w-full h-full bg-slate-250" />
-                      {/* Shimmer */}
+                      <div className="w-full h-full bg-slate-300" />
                       <motion.div
                         className="absolute inset-0"
                         style={{
@@ -174,7 +178,6 @@ export default function Hero() {
                   )}
                 </AnimatePresence>
 
-                {/* Imagen real */}
                 <img
                   src={photo.src}
                   alt={`Foto ${i + 1}`}
@@ -187,26 +190,24 @@ export default function Hero() {
           </div>
 
           {/* Indicadores */}
-          <AnimatePresence>
-            <motion.div
-              className="flex gap-2 mt-6"
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              {PHOTOS.slice(0, visibleCount).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActivePhoto(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === activePhoto
-                      ? "bg-slate-100 w-4"
-                      : "bg-slate-100/40 w-1.5"
-                  }`}
-                />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          <motion.div
+            className="flex gap-2 mt-4"
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            {PHOTOS.slice(0, visibleCount).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActivePhoto(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === activePhoto
+                    ? "bg-slate-100 w-4"
+                    : "bg-slate-100/40 w-1.5"
+                }`}
+              />
+            ))}
+          </motion.div>
         </div>
 
         {/* Título */}
