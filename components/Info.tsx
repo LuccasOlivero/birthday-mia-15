@@ -24,7 +24,7 @@ export default function Info() {
 
       <h2 className="text-base sm:text-lg font-semibold text-center">
         codigo de vestimenta
-        <p>elegante</p>
+        <p>elegante sport</p>
       </h2>
       <p className="text-sm sm:text-base text-center leading-relaxed max-w-xs normal-case">
         ( evitar usar color azul )

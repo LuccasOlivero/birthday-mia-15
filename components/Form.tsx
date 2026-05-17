@@ -115,17 +115,14 @@ export default function Form() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Si no asiste, enviar directamente
     if (formData.asistencia === "no") {
       setEnviando(true);
 
       try {
-        console.log("URL del Apps Script:", APPS_SCRIPT_URL);
-
         const response = await fetch(APPS_SCRIPT_URL!, {
           method: "POST",
           body: JSON.stringify({
-            formData,
+            formData, // ← mensaje ya viene incluido aquí
             invitadosAdicionales: [],
             puntajeQuiz: undefined,
           }),
@@ -176,7 +173,6 @@ export default function Form() {
       return;
     }
 
-    // Validar que todos los acompañantes tengan edad seleccionada
     const todosConEdad = invitadosAdicionales.every(
       (invitado) => invitado.esMenor !== null,
     );
@@ -189,7 +185,6 @@ export default function Form() {
       return;
     }
 
-    // Mostrar quiz solo si confirma asistencia
     if (!mostrarQuiz) {
       setMostrarQuiz(true);
       return;
@@ -395,6 +390,37 @@ export default function Form() {
                       <option value="no">No podré asistir</option>
                     </select>
                   </div>
+
+                  <AnimatePresence>
+                    {formData.asistencia === "no" && (
+                      <motion.div
+                        key="mensaje-no-asiste"
+                        initial={{ opacity: 0, height: 0, y: -10 }}
+                        animate={{ opacity: 1, height: "auto", y: 0 }}
+                        exit={{ opacity: 0, height: 0, y: -10 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="overflow-hidden"
+                      >
+                        <label
+                          htmlFor="mensaje"
+                          className="block text-sm font-medium text-blue-950 mb-1"
+                        >
+                          Mensaje para Mia (opcional)
+                        </label>
+                        <textarea
+                          id="mensaje"
+                          name="mensaje"
+                          rows={3}
+                          disabled={enviando}
+                          placeholder="Escribe un mensaje especial..."
+                          value={formData.mensaje}
+                          onChange={handleChange}
+                          className="w-full px-3 py-2 border border-blue-950 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-950 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  {/* ↑↑↑ FIN NUEVO ↑↑↑ */}
 
                   {/* Cantidad de personas */}
                   {formData.asistencia === "si" && (
