@@ -120,7 +120,7 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
       >
         <source src="/video2.mp4" type="video/mp4" />
-        <img src="/fondo15.png" alt="" className="w-full h-full object-cover" />
+        <img src="/fondo15.jpg" alt="" className="w-full h-full object-cover" />
       </video>
 
       {/* Overlay */}
@@ -183,6 +183,10 @@ export default function Hero() {
                   alt={`Foto ${i + 1}`}
                   className="w-full h-full object-cover"
                   onLoad={() => handleImageLoad(i)}
+                  ref={(el) => {
+                    if (el?.complete && !loadedPhotos.has(i))
+                      handleImageLoad(i);
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
               </motion.div>
